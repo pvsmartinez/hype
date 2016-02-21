@@ -1,0 +1,25 @@
+{
+  "name": "hype",
+  "version": "1.0.0",
+  "description": "software de elaboração de eventos para a matéria de Lab Soft 2 do PCS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "epilogue": "^0.6.5",
+    "express": "^4.13.4",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.2",
+    "method-override": "^2.3.5",
+    "morgan": "^1.7.0",
+    "mysql": "^2.10.2",
+    "sequelize": "^3.19.3"
+  }
+}
