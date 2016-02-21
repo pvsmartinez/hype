@@ -42,6 +42,7 @@ epilogue.initialize({
 modelsFiles.forEach(function(name){
   var endpoints = name.slice(0, -3).toLowerCase() + 's';
   endpoints = ['/rest/'+endpoints,'/rest/'+endpoints+'/:id'];
+  console.log(endpoints);
   models[name.slice(0, -3)] = require('./models/'+name)(Sequelize, sequelize);
   var resource = epilogue.resource({
     model: models[name.slice(0, -3)],

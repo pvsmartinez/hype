@@ -33,6 +33,7 @@
 1. [angular](https://docs.angularjs.org/api)
 2. [jquery](http://api.jquery.com/)
 3. [bootstrap](http://getbootstrap.com/css/)
+4. [ui-bootstrap](http://angular-ui.github.io/bootstrap/)
 
 #### DEVTOOLS (Docs)
 1. [node](https://nodejs.org/api/)
