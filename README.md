@@ -1,5 +1,6 @@
 # Sistema HYPE - How You Plan Events
 ## Projeto de Labsoft 2 - 2016
+
 ---
 ### Grupo:
 * Eduardo Levy
@@ -7,6 +8,7 @@
 * Filipe Arena
 * Pedro Martinez
 * Thais Monti
+
 ---
 ### Como rodar o sistema:
 1. Instalar o Node (https://nodejs.org/)
@@ -19,23 +21,28 @@
 8. $ nodemon server.js
 9. Abrir outro terminal e rodar $ gulp
 10. Abrir um navegador e escrever localhost:8080
+
 ---
 ### Docs relevantes para estudo:
 #### BACKEND (Docs)
 1. [express](http://expressjs.com/en/api.html)
 2. [sequelize](http://sequelize.readthedocs.org/en/latest/)
 3. [epilogue](https://github.com/dchester/epilogue)
+
 #### FRONTEND (Docs)
 1. [angular](https://docs.angularjs.org/api)
 2. [jquery](http://api.jquery.com/)
 3. [bootstrap](http://getbootstrap.com/css/)
+
 #### DEVTOOLS (Docs)
 1. [node](https://nodejs.org/api/)
 2. [gulp](https://github.com/gulpjs/gulp/blob/master/docs/README.md)
+
 #### TUTORIAIS
 1. [spa simples express + angular](https://scotch.io/tutorials/creating-a-single-page-todo-app-with-node-and-angular)
 2. [sequelize com express](http://docs.sequelizejs.com/en/1.7.0/articles/express/)
 3. [gulp](https://scotch.io/tutorials/automate-your-tasks-easily-with-gulp-js)
+
 ---
 ### FILE STRUCTURE:
 * server.js - configuração e inicialização do backend.
