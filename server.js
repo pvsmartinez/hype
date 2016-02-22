@@ -56,7 +56,6 @@ var modulosFiles = fs.readdirSync(modulosPaths);
 var modulos = {};
 var controllers = {};
 modulosFiles.forEach(function(name) {
-  console.log(name);
   modulos[name] = require("path").join(__dirname, '/modulos/'+name+'/api');
   modulos[name] = fs.readdirSync(modulos[name]);
   modulos[name].forEach(function(nome){
@@ -67,7 +66,7 @@ app.get('*', function(req, res) {
     res.sendFile('./index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
 // Create database and listen ==================================================
-sequelize.sync({ force: true }).then(function() {
+sequelize.sync().then(function() {
   console.log("sequelize: connected!");
   // listen (start app with node server.js) ====================================
   console.log("node: opening port...");
