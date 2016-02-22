@@ -19,9 +19,6 @@ app.use(bodyParser.urlencoded({'extended':'true'}));            // parse applica
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
-app.get('*', function(req, res) {
-    res.sendFile('./index.html'); // load the single view file (angular will handle the page changes on the front-end)
-});
 console.log("express: configured!");
 // sequelize db ================================================================
 console.log("sequelize: connecting...");
@@ -42,7 +39,6 @@ epilogue.initialize({
 modelsFiles.forEach(function(name){
   var endpoints = name.slice(0, -3).toLowerCase() + 's';
   endpoints = ['/rest/'+endpoints,'/rest/'+endpoints+'/:id'];
-  console.log(endpoints);
   models[name.slice(0, -3)] = require('./models/'+name)(Sequelize, sequelize);
   var resource = epilogue.resource({
     model: models[name.slice(0, -3)],
@@ -54,7 +50,23 @@ modelsFiles.forEach(function(name){
     models[name.slice(0, -3)].associate(models);
   }
 });
-// Create database and listen
+// Reading Controllers =========================================================
+var modulosPaths = require("path").join(__dirname, "modulos");
+var modulosFiles = fs.readdirSync(modulosPaths);
+var modulos = {};
+var controllers = {};
+modulosFiles.forEach(function(name) {
+  console.log(name);
+  modulos[name] = require("path").join(__dirname, '/modulos/'+name+'/api');
+  modulos[name] = fs.readdirSync(modulos[name]);
+  modulos[name].forEach(function(nome){
+    controllers[nome] = require('./modulos/'+name+'/api/'+nome)(app,models);
+  });
+});
+app.get('*', function(req, res) {
+    res.sendFile('./index.html'); // load the single view file (angular will handle the page changes on the front-end)
+});
+// Create database and listen ==================================================
 sequelize.sync({ force: true }).then(function() {
   console.log("sequelize: connected!");
   // listen (start app with node server.js) ====================================

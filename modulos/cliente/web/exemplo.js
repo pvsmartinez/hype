@@ -15,19 +15,36 @@
     $scope.nome = 'Pedro';
     $scope.newUser = {};
     $scope.post = function (newUser) {
-      var user = new exemploService.User();
-      user.email = newUser.email;
-      user.senha = newUser.senha;
-      exemploService.User.save(user, function() {
-        console.log('user saved with success');
+      exemploService.isEmailTaken(newUser.email).then(function(resp){
+        if(resp.data.length > 0) {
+          console.log('nope!');
+        } else {
+          var user = new exemploService.User();
+          user.email = newUser.email;
+          user.senha = newUser.senha;
+          exemploService.User.save(user, function() {
+            console.log('user saved with success');
+          });
+        }
       });
     };
   }
-  function exemploService($resource) {
+  function exemploService($resource, $http, $q) {
     // no service coloque as chamadas para nosso api.
     var User = $resource('/rest/users/:id');
+    var isEmailTaken = function(email) {
+      var def = $q.defer();
+      $http.get('/api/isEmailTaken/'+email).then(function (data) {
+				def.resolve(data);
+			}, function () {
+        console.error('Erro de Servidor!');
+				def.reject([]);
+			});
+      return def.promise;
+    };
     return {
-      User : User
+      User : User,
+      isEmailTaken : isEmailTaken
     };
   }
 }());

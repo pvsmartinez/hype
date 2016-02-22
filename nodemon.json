@@ -1,0 +1,3 @@
+{
+    "ignore": ["public/**", ".git/**", "modulos/*/web/**", "README.md", "gulpsfile.js", ".gitignore"]
+}
