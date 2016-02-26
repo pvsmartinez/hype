@@ -8,7 +8,7 @@ var fs = require('fs');                                         // node default 
 var mysql = require('mysql');                                   // connection db type
 var Sequelize = require('sequelize');                           // node ORM for mySQL
 var epilogue = require('epilogue');                             // node restfull for sequelize
-var port = 8080;
+var config = require('./config');                               // confgurations file
 // server configurations =======================================================
 console.log("express: configuring...");
 app = express();
@@ -26,8 +26,9 @@ console.log("sequelize: connecting...");
 var modelsPaths = require("path").join(__dirname, "models");    // getting all models files
 var modelsFiles = fs.readdirSync(modelsPaths);                  // reading all models files
 var models      = {};
-var sequelize   = new Sequelize('hype', 'root', 'root', {
-  host: 'localhost',
+var sequelize   = new Sequelize(config.db.name, config.db.user, config.db.password, {
+  host: config.db.host,
+  port: config.db.port,
   dialect: 'mysql',
 });
 // Initialize epilogue
@@ -70,7 +71,7 @@ sequelize.sync().then(function() {
   console.log("sequelize: connected!");
   // listen (start app with node server.js) ====================================
   console.log("node: opening port...");
-  app.listen(port);
-  console.log("node: listening on port " + port);
+  app.listen(config.web.port);
+  console.log("node: listening on port " + config.web.port);
   // pronto! está rodando ======================================================
 });
