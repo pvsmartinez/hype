@@ -63,7 +63,7 @@ modulosFiles.forEach(function(name) {
   });
 });
 app.get('*', function(req, res) {
-    res.sendFile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
 // Create database and listen ==================================================
 sequelize.sync().then(function() {
