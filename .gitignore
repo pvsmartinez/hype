@@ -7,5 +7,5 @@ node_modules/
 ehthumbs.db
 Thumbs.db
 public/compiled.*
-.idea/workspace.xml
+.idea
 
