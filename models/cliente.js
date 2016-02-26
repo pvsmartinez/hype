@@ -12,5 +12,18 @@
     });
     return Classe;
   };
-  module.exports = defineClass;
+  var population = [
+    {
+      bio: 'Cliente é muito feliz',
+      userId: 0
+    },
+    {
+      bio: 'Cliente é muito calmo',
+      userId: 1
+    },
+  ];
+  module.exports = {
+    defineClass : defineClass,
+    population : population
+  };
 }());

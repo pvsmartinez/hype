@@ -21,5 +21,18 @@
     });
     return Classe;
   };
-  module.exports = defineClass;
+  var population = [
+    {
+      bio: 'Pois é eu sou um palhaço :/',
+      userId: 2
+    },
+    {
+      bio: 'ha la la la lã',
+      userId: 3
+    },
+  ];
+  module.exports = {
+    defineClass : defineClass,
+    population : population
+  };
 }());

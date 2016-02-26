@@ -1,14 +1,14 @@
 (function(){
   "use strict";
   var defineClass = function (Sequelize, sequelize) {
-    var Classe = sequelize.define('Perfil', {
-      nome: Sequelize.STRING,
-      birthday: Sequelize.DATE,
-      sexo: Sequelize.BOOLEAN
+    var Classe = sequelize.define('Orcamento', {
+      nome: Sequelize.STRING
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.belongsTo(models.user);
+          Classe.hasOne(models.evento);
+          Classe.hasOne(models.promoter);
+          Classe.hasMany(models.propostaServico, {as : "servicos"});
         }
       }
     });
