@@ -10,6 +10,7 @@
         associate: function(models) {
           Classe.belongsTo(models.cliente);
           Classe.hasOne(models.tipoEvento);
+          Classe.hasMany(models.tipoServico);
         }
       }
     });

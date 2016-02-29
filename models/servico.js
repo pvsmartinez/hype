@@ -7,7 +7,7 @@
       classMethods: {
         associate: function(models) {
           Classe.belongsTo(models.fornecedor);
-          Classe.hasMany(models.valorServico);
+          Classe.hasOne(models.valorServico);
         }
       }
     });

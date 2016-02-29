@@ -8,6 +8,7 @@
         associate: function(models) {
           Classe.belongsTo(models.user);
           Classe.hasMany(models.tipoEvento, {as:'especialidades'});
+          Classe.hasMany(models.orcamento);
         }
       }
     });
