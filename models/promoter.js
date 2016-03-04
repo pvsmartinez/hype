@@ -6,7 +6,7 @@
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.belongsTo(models.user);
+          Classe.belongsTo(models.user, {as: 'user'});
           Classe.hasMany(models.tipoEvento, {as:'especialidades'});
         }
       }
@@ -15,12 +15,16 @@
   };
   var population = [
     {
-      bio: 'Cliente é muito feliz',
-      userId: 0
+      bio: 'Ouça os meus conselhos!',
+      user: {
+        email: 'promoter1@gmail.com'
+      }
     },
     {
-      bio: 'Cliente é muito calmo',
-      userId: 1
+      bio: 'Agua se tornará vinho. Só preciso de 3 pães e 3 vinhos.',
+      user: {
+        email: 'promoter2@gmail.com'
+      }
     },
   ];
   module.exports = {

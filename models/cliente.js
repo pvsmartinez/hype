@@ -6,7 +6,7 @@
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.belongsTo(models.user);
+          Classe.belongsTo(models.user, {as: 'user'});
         }
       }
     });
@@ -15,11 +15,15 @@
   var population = [
     {
       bio: 'Cliente é muito feliz',
-      userId: 0
+      user: {
+        email: 'cliente1@gmail.com'
+      }
     },
     {
       bio: 'Cliente é muito calmo',
-      userId: 1
+      user: {
+        email: 'cliente2@gmail.com'
+      }
     },
   ];
   module.exports = {

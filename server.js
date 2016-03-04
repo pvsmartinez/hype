@@ -7,6 +7,7 @@ var methodOverride = require('method-override');                // simulate DELE
 var fs = require('fs');                                         // node default file system manager
 var mysql = require('mysql');                                   // connection db type
 var Sequelize = require('sequelize');                           // node ORM for mySQL
+var sequelize_fixtures = require('sequelize-fixtures');         // sequelize mockup library
 var epilogue = require('epilogue');                             // node restfull for sequelize
 var config = require('./config');                               // confgurations file
 // server configurations =======================================================
@@ -26,6 +27,8 @@ console.log("sequelize: connecting...");
 var modelsPaths = require("path").join(__dirname, "models");    // getting all models files
 var modelsFiles = fs.readdirSync(modelsPaths);                  // reading all models files
 var models      = {};
+var mocks       = {};
+var pops        = [];
 var sequelize   = new Sequelize(config.db.name, config.db.user, config.db.password, {
   host: config.db.host,
   port: config.db.port,
@@ -41,6 +44,7 @@ modelsFiles.forEach(function(name){
   var endpoints = name.slice(0, -3).toLowerCase() + 's';
   endpoints = ['/rest/'+endpoints,'/rest/'+endpoints+'/:id'];
   models[name.slice(0, -3)] = require('./models/'+name).defineClass(Sequelize, sequelize);
+  mocks[name.slice(0, -3)] = require('./models/'+name).population;
   var resource = epilogue.resource({
     model: models[name.slice(0, -3)],
     endpoints: endpoints
@@ -67,11 +71,17 @@ app.get('*', function(req, res) {
     res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
 // Create database and listen ==================================================
-sequelize.sync().then(function() {
+sequelize.sync({force:true}).then(function() {
   console.log("sequelize: connected!");
+  console.log("populating BD...");
+  for (var key in mocks) {
+    if (!mocks.hasOwnProperty(key)) continue;
+    models[key].bulkCreate(mocks[key], { validate: false });
+  }
+  console.log("BD Populado!!");
   // listen (start app with node server.js) ====================================
   console.log("node: opening port...");
   app.listen(config.web.port);
   console.log("node: listening on port " + config.web.port);
-  // pronto! está rodando ======================================================
+  // pronto! está rodando ======================================================`
 });

@@ -13,7 +13,7 @@
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.belongsTo(models.user);
+          Classe.belongsTo(models.user, {as: 'user'});
           Classe.hasMany(models.servico);
           Classe.hasMany(models.propostaServico);
         }
@@ -24,11 +24,15 @@
   var population = [
     {
       bio: 'Pois é eu sou um palhaço :/',
-      userId: 2
+      user: {
+        email: 'fornecedor1@gmail.com'
+      }
     },
     {
       bio: 'ha la la la lã',
-      userId: 3
+      user: {
+        email: 'fornecedor2@gmail.com'
+      }
     },
   ];
   module.exports = {
