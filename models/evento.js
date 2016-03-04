@@ -11,6 +11,7 @@
             as: 'cliente'
           });
           Classe.hasOne(models.tipoEvento);
+          Classe.hasMany(models.tipoServico);
         }
       }
     });

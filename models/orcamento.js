@@ -2,13 +2,14 @@
   "use strict";
   var defineClass = function (Sequelize, sequelize) {
     var Classe = sequelize.define('Orcamento', {
-      nome: Sequelize.STRING
+      nome: Sequelize.STRING(1024),
+      preco: Sequelize.FLOAT,
+      descricao: Sequelize.STRING(1024)
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.hasOne(models.evento);
-          Classe.hasOne(models.promoter);
-          Classe.hasMany(models.propostaServico, {as : "servicos"});
+          Classe.belongsTo(models.evento);
+          Classe.hasMany(models.propostaServico);
         }
       }
     });
