@@ -6,7 +6,7 @@
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.belongsTo(models.user, {as: 'user'});
+          Classe.belongsTo(models.user, {as: 'user', foreignKey: 'userId'});
         }
       }
     });

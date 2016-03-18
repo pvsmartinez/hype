@@ -28,6 +28,7 @@ var modelsPaths = require("path").join(__dirname, "models");    // getting all m
 var modelsFiles = fs.readdirSync(modelsPaths);                  // reading all models files
 var models      = {};
 var mocks       = {};
+var mocksInclude = {};
 var pops        = [];
 var sequelize   = new Sequelize(config.db.name, config.db.user, config.db.password, {
   host: config.db.host,
@@ -41,18 +42,20 @@ epilogue.initialize({
 });
 // Create REST resource for each models
 modelsFiles.forEach(function(name){
-  var endpoints = name.slice(0, -3).toLowerCase() + 's';
+  var modelName = name.slice(0, -3);
+  var endpoints = modelName.toLowerCase() + 's';
   endpoints = ['/rest/'+endpoints,'/rest/'+endpoints+'/:id'];
-  models[name.slice(0, -3)] = require('./models/'+name).defineClass(Sequelize, sequelize);
-  mocks[name.slice(0, -3)] = require('./models/'+name).population;
+  models[modelName] = require('./models/'+name).defineClass(Sequelize, sequelize);
+  mocks[modelName] = require('./models/'+name).population;
   var resource = epilogue.resource({
-    model: models[name.slice(0, -3)],
+    model: models[modelName],
     endpoints: endpoints
   });
 });
 modelsFiles.forEach(function(name){
-  if ("associate" in models[name.slice(0, -3)]) {
-    models[name.slice(0, -3)].associate(models);
+  var modelName = name.slice(0, -3);
+  if ("associate" in models[modelName]) {
+    models[modelName].associate(models);
   }
 });
 // Reading Controllers =========================================================
@@ -74,10 +77,14 @@ app.get('*', function(req, res) {
 sequelize.sync({force:true}).then(function() {
   console.log("sequelize: connected!");
   console.log("populating BD...");
-  for (var key in mocks) {
+
+  var keys = Object.getOwnPropertyNames( mocks );
+  for (var i = keys.length - 1; i >= 0; i--) {
+    var key = keys[i];
     if (!mocks.hasOwnProperty(key)) continue;
-    models[key].bulkCreate(mocks[key], { validate: false });
+    models[key].bulkCreate(mocks[key], {validate: false});
   }
+
   console.log("BD Populado!!");
   // listen (start app with node server.js) ====================================
   console.log("node: opening port...");

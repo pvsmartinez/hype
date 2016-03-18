@@ -5,12 +5,6 @@
       nome: Sequelize.STRING,
       birthday: Sequelize.DATE,
       sexo: Sequelize.BOOLEAN
-    }, {
-      classMethods: {
-        associate: function(models) {
-          Classe.belongsTo(models.user, {as: 'user'});
-        }
-      }
     });
     return Classe;
   };
@@ -19,51 +13,40 @@
       nome: 'Pedro Santana',
       birthday: new Date('1994-12-01 13:10:10'),
       sexo: false,
-      user: {
-        email: 'cliente1@gmail.com'
-      }
+      userId: 1
     },
     {
       nome: 'Rafael Freitas',
       birthday: new Date('1989-05-11 13:10:10'),
       sexo: true,
-      user: {
-        email: 'cliente2@gmail.com'
-      }
+      userId: 2
     },
     {
       nome: 'João Batista',
       birthday: new Date('1993-04-01 13:10:10'),
       sexo: true,
-      user: {
-        email: 'fornecedor1@gmail.com'
-      }
+      userId: 3
     },
     {
       nome: 'Filipe Arena',
       birthday: new Date('1980-12-01 13:10:10'),
       sexo: false,
-      user: {
-        email: 'fornecedor2@gmail.com'
-      }
+      userId: 4
     },
     {
       nome: 'Felipe Paiva',
       birthday: new Date('1990-12-01 13:10:10'),
       sexo: true,
-      user: {
-        email: 'promoter1@gmail.com'
-      }
+      userId: 5
     },
     {
       nome: 'Du Levy',
       birthday: new Date('0000-12-25 00:00:00'),
       sexo: true,
-      user: {
-        email: 'promoter2@gmail.com'
-      }
+      userId: 6
     },
   ];
+
   module.exports = {
     defineClass : defineClass,
     population : population

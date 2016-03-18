@@ -6,7 +6,19 @@
     });
     return Classe;
   };
-  var population = [];
+
+  var population = [
+    {
+      nome: 'Festa de 15 Anos'
+    },
+    {
+      nome: 'Casamento'
+    },
+    {
+      nome: 'Confraternização'
+    }
+  ];
+  
   module.exports = {
     defineClass : defineClass,
     population : population

@@ -14,20 +14,18 @@
     });
     return Classe;
   };
+
   var population = [
     {
       bio: 'Ouça os meus conselhos!',
-      user: {
-        email: 'promoter1@gmail.com'
-      }
+      userId: 5
     },
     {
       bio: 'Agua se tornará vinho. Só preciso de 3 pães e 3 vinhos.',
-      user: {
-        email: 'promoter2@gmail.com'
-      }
+      userId: 6
     },
   ];
+
   module.exports = {
     defineClass : defineClass,
     population : population
