@@ -2,8 +2,6 @@
     'use strict';
     function promoterSrvc($resource, $http, $q) {
         // no service coloque as chamadas para nosso api.
-        var User = $resource('/rest/users/:id');
-        var Perfil = $resource('/rest/perfils/:id');
         var Promoter = $resource('/rest/promoters/:id');
 
         var isEmailTaken = function (email) {
@@ -18,8 +16,6 @@
         };
         return {
             isEmailTaken: isEmailTaken,
-            User: User,
-            Perfil: Perfil,
             Promoter: Promoter
         };
     }
