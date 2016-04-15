@@ -9,6 +9,7 @@ var mysql = require('mysql');                                   // connection db
 var Sequelize = require('sequelize');                           // node ORM for mySQL
 var sequelize_fixtures = require('sequelize-fixtures');         // sequelize mockup library
 var epilogue = require('epilogue');                             // node restfull for sequelize
+var jwt = require('jsonwebtoken');
 var config = require('./config');                               // confgurations file
 // server configurations =======================================================
 console.log("express: configuring...");
@@ -20,6 +21,8 @@ app.use(bodyParser.urlencoded({'extended':'true'}));            // parse applica
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
+app.set('superSecret', config.web.secret);
+
 console.log("express: configured!");
 // sequelize db ================================================================
 console.log("sequelize: connecting...");
@@ -43,20 +46,17 @@ epilogue.initialize({
 // Create REST resource for each models
 modelsFiles.forEach(function(name){
   var modelName = name.slice(0, -3);
-  var endpoints = modelName.toLowerCase() + 's';
-  endpoints = ['/rest/'+endpoints,'/rest/'+endpoints+'/:id'];
   models[modelName] = require('./models/'+name).defineClass(Sequelize, sequelize);
   mocks[modelName] = require('./models/'+name).population;
-  var resource = epilogue.resource({
-    model: models[modelName],
-    endpoints: endpoints
-  });
 });
 modelsFiles.forEach(function(name){
   var modelName = name.slice(0, -3);
   if ("associate" in models[modelName]) {
     models[modelName].associate(models);
   }
+});
+app.get('/promoter/*', function(req, res) {
+    res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
 });
 // Reading Controllers =========================================================
 var modulosPaths = require("path").join(__dirname, "modulos");
@@ -67,19 +67,25 @@ modulosFiles.forEach(function(name) {
   modulos[name] = require("path").join(__dirname, '/modulos/'+name+'/api');
   modulos[name] = fs.readdirSync(modulos[name]);
   modulos[name].forEach(function(nome){
-    controllers[nome] = require('./modulos/'+name+'/api/'+nome)(app,models);
+    controllers[nome] = require('./modulos/'+name+'/api/'+nome)(app,models, jwt);
   });
 });
-app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+modelsFiles.forEach(function(name){
+  var modelName = name.slice(0, -3);
+  var endpoints = modelName.toLowerCase() + 's';
+  endpoints = ['/rest/'+endpoints,'/rest/'+endpoints+'/:id'];
+  var resource = epilogue.resource({
+    model: models[modelName],
+    endpoints: endpoints
+  });
 });
 // Create database and listen ==================================================
 sequelize.sync({force:true}).then(function() {
   console.log("sequelize: connected!");
   console.log("populating BD...");
 
-  var keys = Object.getOwnPropertyNames( mocks );
-  for (var i = keys.length - 1; i >= 0; i--) {
+  var keys = ['promoter', 'fornecedor', 'servico', 'tarifacao', 'favorito'];
+  for (var i = 0; i < keys.length; i++) {
     var key = keys[i];
     if (!mocks.hasOwnProperty(key)) continue;
     models[key].bulkCreate(mocks[key], {validate: false});

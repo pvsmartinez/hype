@@ -2,39 +2,32 @@
   "use strict";
   var defineClass = function (Sequelize, sequelize) {
     var Classe = sequelize.define('Fornecedor', {
-      bio: Sequelize.STRING,
-      segunda: Sequelize.BOOLEAN,
-      terca: Sequelize.BOOLEAN,
-      quarta: Sequelize.BOOLEAN,
-      quinta: Sequelize.BOOLEAN,
-      sexta: Sequelize.BOOLEAN,
-      sabado: Sequelize.BOOLEAN,
-      domingo: Sequelize.BOOLEAN
+      nome: Sequelize.STRING,
+      servico: Sequelize.STRING,
+      preco: Sequelize.REAL
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.belongsTo(models.user, {as: 'user'});
-          Classe.hasMany(models.servico);
-          Classe.hasMany(models.propostaServico);
+          Classe.hasMany(models.fornecedor, {foreignKey: 'fornecedor_id'})
         }
       }
     });
     return Classe;
   };
+
   var population = [
     {
-      bio: 'Pois é eu sou um palhaço :/',
-      user: {
-        email: 'fornecedor1@gmail.com'
-      }
+      nome: "Fornecedor Buffet",
+      servico: "Buffet",
+      preco: 1000.00,
     },
     {
-      bio: 'ha la la la lã',
-      user: {
-        email: 'fornecedor2@gmail.com'
-      }
-    },
+      nome: "Fornecedor Filmagem",
+      servico: "Filmagem",
+      preco: 2000.00,
+    }
   ];
+
   module.exports = {
     defineClass : defineClass,
     population : population

@@ -11,5 +11,6 @@ config.db.port = process.env.HYPE_DB_PORT || 3306;
 //web config
 config.web = {};
 config.web.port = process.env.WEB_PORT || 8080;
+config.web.secret = 'LOkaOMaluCo';
 
 module.exports = config;

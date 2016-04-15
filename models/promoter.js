@@ -2,13 +2,17 @@
   "use strict";
   var defineClass = function (Sequelize, sequelize) {
     var Classe = sequelize.define('Promoter', {
-      bio: Sequelize.STRING
+      nome: Sequelize.STRING,
+      email: Sequelize.STRING,
+      senha: Sequelize.STRING,
+      especialidade: Sequelize.STRING,
+      experiencia: Sequelize.STRING,
+      biografia: Sequelize.STRING,
+      dataNascimento: Sequelize.DATE
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.belongsTo(models.user, {as: 'user'});
-          Classe.hasMany(models.tipoEvento, {as:'especialidades'});
-          Classe.hasMany(models.orcamento);
+          Classe.hasOne(models.tarifacao, {foreignKey: 'promoter_id'})
         }
       }
     });
@@ -17,13 +21,23 @@
 
   var population = [
     {
-      bio: 'Ouça os meus conselhos!',
-      userId: 5
+      nome: "Felipe",
+      email: "admin@admin.com",
+      senha: "admin",
+      especialidade: "Festas",
+      experiencia: "Muitas Festas",
+      biografia: "Varias Festas",
+      dataNascimento: new Date(new Date().getTime() - 18 * 365*24*60*60*1000)
     },
     {
-      bio: 'Agua se tornará vinho. Só preciso de 3 pães e 3 vinhos.',
-      userId: 6
-    },
+      nome: "Felipe 2",
+      email: "admin2@admin2.com",
+      senha: "admin2",
+      especialidade: "Casamentos",
+      experiencia: "Muitas Casamentos",
+      biografia: "Varias Casamentos",
+      dataNascimento: new Date(new Date().getTime() - 18 * 365*24*60*60*1000)
+    }
   ];
 
   module.exports = {

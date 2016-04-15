@@ -36,6 +36,19 @@
       </script>
         <h1>Fornecedores</h1>
         <h3 role="alert">{{ message }}</h3>
+        <span>Filtro: </span><label><input type="checkbox" ng-model="onlyFavorito" ng-change="filterFavorito()"> Favoritos</label>
+        <div ng-repeat="fornecedor in fornecedores">
+          <form novalidate>
+            <div class="form-group">
+              <label>Nome:</label><input type="text" class="form-control" ng-model="fornecedor.nome" ng-disabled="true">
+              <label>Serviço:</label><input type="text" class="form-control" ng-model="fornecedor.servico" ng-disabled="true">
+              <label>Preço:</label><input type="text" class="form-control" ng-model="fornecedor.preco" ng-disabled="true">
+            </div>
+            <div class="form-group">
+              <label>Favorito: <input type="checkbox" ng-model="fornecedor.favorito"></label>
+            </div>
+          </form>
+        </div>
     </div>
   </div>
 <!-- /#page-content-wrapper -->

@@ -3,7 +3,7 @@
 
     function config($routeProvider) {
         // No config, coloque as rotas, que unem o html com o controller
-        $routeProvider.when('/novoPromoter', {
+        $routeProvider.when('/promoter/novoPromoter', {
             templateUrl: '/promoter/web/views/novoPromoterView.html',
             controller: 'novoPromoterCtrl'
         });

@@ -36,6 +36,19 @@
       </script>
         <h1>Meus Serviços</h1>
         <h3 role="alert">{{ message }}</h3>
+        <div ng-repeat="servico in servicos">
+          <form novalidate ng-submit="cancel(servico)">
+            <div class="form-group">
+              <label>Nome:</label><input type="text" class="form-control" ng-model="servico.nome" ng-disabled="true">
+              <label>Fornecedor:</label><input type="text" class="form-control" ng-model="servico.fornecedor" ng-disabled="true">
+              <label>Estado:</label><input type="text" class="form-control" ng-model="servico.estado" ng-disabled="true">
+              <label>Orçamento:</label><input type="text" class="form-control" ng-model="servico.orcamento" ng-disabled="true">
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Cancelar</button>
+            </div>
+          </form>
+        </div>
     </div>
   </div>
 <!-- /#page-content-wrapper -->
