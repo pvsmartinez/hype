@@ -37,7 +37,7 @@
         <h1>Fornecedores</h1>
         <h3 role="alert">{{ message }}</h3>
         <span>Filtro: </span><label><input type="checkbox" ng-model="onlyFavorito" ng-change="filterFavorito()"> Favoritos</label>
-        <div ng-repeat="fornecedor in fornecedores">
+        <div ng-repeat="fornecedor in fornecedors">
           <form novalidate>
             <div class="form-group">
               <label>Nome:</label><input type="text" class="form-control" ng-model="fornecedor.nome" ng-disabled="true">
@@ -45,7 +45,7 @@
               <label>Preço:</label><input type="text" class="form-control" ng-model="fornecedor.preco" ng-disabled="true">
             </div>
             <div class="form-group">
-              <label>Favorito: <input type="checkbox" ng-model="fornecedor.favorito"></label>
+              <label>Favorito: <input type="checkbox" ng-model="fornecedor.favorito" ng-change="changeFavorito(fornecedor)"></label>
             </div>
           </form>
         </div>
