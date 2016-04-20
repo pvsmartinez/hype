@@ -9,6 +9,7 @@
     }, {
       classMethods: {
         associate: function(models) {
+          Classe.belongsTo(models.promoter, {foreignKey: 'promoter_id'})
         }
       }
     });
@@ -20,13 +21,15 @@
       nome: "Buffet do Fornecedor Buffet",
       fornecedor: "Fornecedor Buffet",
       estado: "Orçamento pedido",
-      preco: 0
+      orcamento: 0,
+      promoter_id: 1
     },
     {
       nome: "Filmagem do Fornecedor Buffet",
       fornecedor: "Fornecedor Filmagem",
       estado: "Orçamento enviado",
-      preco: 2000.00
+      orcamento: 2000.00,
+      promoter_id: 2
     }
   ];
 

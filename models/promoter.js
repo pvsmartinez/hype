@@ -13,6 +13,7 @@
       classMethods: {
         associate: function(models) {
           Classe.hasOne(models.tarifacao, {foreignKey: 'promoter_id'})
+          Classe.hasMany(models.servico, {foreignKey: 'promoter_id'})
         }
       }
     });

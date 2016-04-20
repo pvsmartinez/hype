@@ -98,3 +98,45 @@ sequelize.sync({force:true}).then(function() {
   console.log("node: listening on port " + config.web.port);
   // pronto! está rodando ======================================================`
 });
+
+var querystring = require('querystring');
+var http = require('http');
+
+var isDisponivelOptions = {
+  host: 'gestortarifacao.azurewebsites.net',
+  path: '/api/Disponibilidade/isDisponivel',
+  method: 'GET',
+};
+
+var addTarifacaoOptions = {
+  host: 'gestortarifacao.azurewebsites.net',
+  path: '/api/tarifacao/addTarifacao',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+};
+
+function sendRequest(data, options, successCallback, errorCallback, dataMigue){
+  var r = http.request(options, function(req) {
+    var body = '';
+    req.on('data', function (data) {
+        body += data;
+    });
+    req.on('end', function () {
+      if(successCallback)
+        successCallback(body, dataMigue);
+    });
+  }).on('error', function(e){
+    if(errorCallback)
+      errorCallback(e);
+  });
+  if(options.method == 'POST'){
+    r.write(data);
+  }
+  r.end();
+}
+
+var sincronizador = require("./sincronizador.js");
+sincronizador.init(models);
+setInterval(sincronizador.sincronizar, 60*1000);

@@ -6,9 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
 
     <title>HYPE - How you plan events</title>
-    <link rel="icon" type="image/png" href="/icon.png">
+<<<<<<< HEAD
+
     <link rel="stylesheet" href="/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/bootstrap/3.3.6/css/bootstrap.min.css">
+=======
+    <link rel="icon" type="image/png" href="/icon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+>>>>>>> origin/promoters
     <link rel="stylesheet" href="/styles.css">
 
     <base href="/">

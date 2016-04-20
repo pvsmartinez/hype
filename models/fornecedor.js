@@ -8,7 +8,7 @@
     }, {
       classMethods: {
         associate: function(models) {
-          Classe.hasMany(models.fornecedor, {foreignKey: 'fornecedor_id'})
+          Classe.hasMany(models.favorito, {foreignKey: 'fornecedor_id'})
         }
       }
     });
